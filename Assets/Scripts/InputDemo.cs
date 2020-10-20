@@ -53,35 +53,35 @@ public class InputDemo : MonoBehaviour
             Debug.Log("stick:" + hori + "," + vert);
         }
         //L Stick
-        float lsh = Input.GetAxis("L Stick_H");
-        float lsv = Input.GetAxis("L Stick_V");
+        float lsh = Input.GetAxis("L_Stick_H");
+        float lsv = Input.GetAxis("L_Stick_V");
         if ((lsh != 0) || (lsv != 0))
         {
-            Debug.Log("L stick:" + lsh + "," + lsv);
+            Debug.Log("L_stick:" + lsh + "," + lsv);
         }
         //R Stick
-        float rsh = Input.GetAxis("R Stick_H");
-        float rsv = Input.GetAxis("R Stick_V");
+        float rsh = Input.GetAxis("R_Stick_H");
+        float rsv = Input.GetAxis("R_Stick_V");
         if ((rsh != 0) || (rsv != 0))
         {
-            Debug.Log("R stick:" + rsh + "," + rsv);
+            Debug.Log("R_stick:" + rsh + "," + rsv);
         }
         //D-Pad
-        float dph = Input.GetAxis("D Pad_H");
-        float dpv = Input.GetAxis("D Pad_V");
+        float dph = Input.GetAxis("D_Pad_H");
+        float dpv = Input.GetAxis("D_Pad_V");
         if ((dph != 0) || (dpv != 0))
         {
-            Debug.Log("D Pad:" + dph + "," + dpv);
+            Debug.Log("D_Pad:" + dph + "," + dpv);
         }
         //Trigger
         float tri = Input.GetAxis("Trigger_LR");
         if (tri > 0)
         {
-            Debug.Log("L trigger:" + tri);
+            Debug.Log("L_trigger:" + tri);
         }
         else if (tri < 0)
         {
-            Debug.Log("R trigger:" + tri);
+            Debug.Log("R_trigger:" + tri);
         }
         //else
         //{
