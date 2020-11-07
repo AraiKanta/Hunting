@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    /// <summary>  このスクリプトで使う変数一覧 /// </summary>
-    
+    /// <summary>  このスクリプトで使う変数一覧 </summary>
+
+    /// <summary>  Rigidbody </summary>
+    //private Rigidbody rigidbody;
+    /// <summary>  CharacterController </summary>
     private CharacterController characterController;
-    ///<summary> キャラクターのアニメーション /// </summary>
+    ///<summary> キャラクターのアニメーション </summary>
     private Animator m_anim;
     private Vector3 velocity;
-    /// <summary> キャラクターの移動スピード /// </summary>
+    /// <summary> キャラクターの移動スピード </summary>
     [SerializeField]
     private float walkSpeed = 2f;
+
+    //public enum Status
+    //{ 
+    //    Move,
+    //    Avoidance,
+    //    Attack,
+    //    Damage
+    //}
 
     void Start()
     {
@@ -37,7 +48,33 @@ public class PlayerController : MonoBehaviour
             {
                 m_anim.SetBool("Walk", false);
             }
+            if (Input.GetButton("RB"))
+            {
+                velocity = transform.forward * (walkSpeed * 2);
+                m_anim.SetBool("Run", true);
+            }
+            else
+            {
+                m_anim.SetBool("Run", false);
+            }
+            if (Input.GetButton("A Button"))
+            {
+                m_anim.SetBool("Roll", true);
+            }
+            else
+            {
+                m_anim.SetBool("Roll", false);
+            }
+            if (Input.GetButton("Y Button"))
+            {
+                m_anim.SetBool("DaS",true);
+            }
+            else
+            {
+                m_anim.SetBool("DaS", false);
+            }
         }
+        
         velocity.y += Physics.gravity.y * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
@@ -52,5 +89,18 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(moveForward);
         }
     }
+    //public void Move()
+    //{
+    //    if (Input.GetButton("RB"))
+    //    {
+    //        velocity = transform.forward * (walkSpeed * 2);
+    //        m_anim.SetBool("Run", true);
+    //    }
+    //    else
+    //    {
+    //        m_anim.SetBool("Run", false);
+    //    }
+    //}
 }
+
 
