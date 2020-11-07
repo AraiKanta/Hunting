@@ -6,8 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     /// <summary>  このスクリプトで使う変数一覧 </summary>
 
-    /// <summary>  Rigidbody </summary>
-    //private Rigidbody rigidbody;
     /// <summary>  CharacterController </summary>
     private CharacterController characterController;
     ///<summary> キャラクターのアニメーション </summary>
@@ -65,14 +63,14 @@ public class PlayerController : MonoBehaviour
             {
                 m_anim.SetBool("Roll", false);
             }
-            if (Input.GetButton("Y Button"))
-            {
-                m_anim.SetBool("DaS",true);
-            }
-            else
-            {
-                m_anim.SetBool("DaS", false);
-            }
+            //if (Input.GetButton("Y Button"))
+            //{
+            //    m_anim.SetBool("DaS",true);
+            //}
+            //else
+            //{
+            //    m_anim.SetBool("DaS", false);
+            //}
         }
         
         velocity.y += Physics.gravity.y * Time.deltaTime;
