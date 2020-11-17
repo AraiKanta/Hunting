@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_KeyBoard : MonoBehaviour
 {
     //このスクリプトで使う変数一覧
 
@@ -13,8 +13,27 @@ public class PlayerController : MonoBehaviour
     /// <summary> キャラクターの移動スピード </summary>
     [SerializeField] private float walkSpeed = 2f;
 
+    [SerializeField] Transform handTransform;
+    [SerializeField] Transform chestTransform;
+    [SerializeField] Transform katana;
     private Vector3 velocity;
-   
+
+    /// <summary>
+    ///　刀プレハブの親Objectは手の空Objectと背中の空オブジェクトとするクラス 
+    /// </summary>
+    public void WeaponSwitch()
+    {
+        katana.parent = handTransform;
+        katana.localPosition = Vector3.zero;
+        katana.localRotation = Quaternion.identity;
+    }
+    public void SwordDelivery()
+    {
+        katana.parent = chestTransform;
+        katana.localPosition = Vector3.zero;
+        katana.localRotation = Quaternion.identity;
+    }
+
     //public enum Status
     //{ 
     //    Move,
@@ -35,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity = Vector3.zero;
 
-            var input = new Vector3(Input.GetAxis("DS4_L_Stick_V"), 0f, Input.GetAxis("DS4_L_Stick_H"));
+            var input = new Vector3(Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
 
             if (input.magnitude > 0f)
             {
@@ -46,7 +65,7 @@ public class PlayerController : MonoBehaviour
             {
                 m_anim.SetBool("Walk", false);
             }
-            if (Input.GetButton("R1"))
+            if (Input.GetButton("Fire3"))
             {
                 velocity = transform.forward * (walkSpeed * 2);
                 m_anim.SetBool("Run", true);
@@ -55,7 +74,7 @@ public class PlayerController : MonoBehaviour
             {
                 m_anim.SetBool("Run", false);
             }
-            if (Input.GetButtonDown("DS4_X_Button"))
+            if (Input.GetButtonDown("Jump"))
             {
                 m_anim.SetBool("Roll", true);
             }
@@ -63,13 +82,21 @@ public class PlayerController : MonoBehaviour
             {
                 m_anim.SetBool("Roll", false);
             }
-            if (Input.GetButtonDown("DS4_Square_Button"))
+            if (Input.GetMouseButtonDown(1))
             {
                 m_anim.SetBool("DaS", true);
             }
             else
             {
                 m_anim.SetBool("DaS", false);
+            }
+            if (Input.GetButtonDown("Key_G"))
+            {
+                m_anim.SetBool("SD", true);
+            }
+            else
+            {
+                m_anim.SetBool("SD", false);
             }
         }
         velocity.y += Physics.gravity.y * Time.deltaTime;
@@ -78,15 +105,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // カメラの向いたほうにキャラクターに力を加える
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1));
-
-        Vector3 moveForward = cameraForward * Input.GetAxis("DS4_L_Stick_V") + Camera.main.transform.right * Input.GetAxis("DS4_L_Stick_H");
-
+        Vector3 moveForward = cameraForward * Input.GetAxis("Vertical") + Camera.main.transform.right * Input.GetAxis("Horizontal");
         if (moveForward != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
         }
     }
+
     //public void Move()
     //{
     //    if (Input.GetButton("RB"))
