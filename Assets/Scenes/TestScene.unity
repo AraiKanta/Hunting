@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh14696
+  m_Name: pb_Mesh14698
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -601,7 +601,7 @@ Transform:
   - {fileID: 121175230}
   - {fileID: 1854521332}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &322990946 stripped
 Transform:
@@ -784,7 +784,7 @@ Transform:
   - {fileID: 77372168}
   - {fileID: 505601244}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &808089650
 MonoBehaviour:
@@ -1931,6 +1931,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DemoPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 6830153215873442304, guid: 8ecc041114ca1094a9e2baba9e7738f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6831341928791249982, guid: 8ecc041114ca1094a9e2baba9e7738f2,
         type: 3}
       propertyPath: weapons.Array.size
@@ -2021,5 +2026,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 67d8070eabbf45b45a0f80bd4bfc97b8, type: 2}
+    - target: {fileID: 6890165563240929428, guid: 8ecc041114ca1094a9e2baba9e7738f2,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ecc041114ca1094a9e2baba9e7738f2, type: 3}

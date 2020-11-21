@@ -18,8 +18,10 @@ public class PlayerController_KeyBoard : MonoBehaviour
     [SerializeField] Transform katana;
     private Vector3 velocity;
 
+    AttackAnim attackAnim;
+
     /// <summary>
-    ///　刀プレハブの親Objectは手の空Objectと背中の空オブジェクトとするクラス 
+    ///　刀プレハブの親Objectは手の空Objectとする
     /// </summary>
     public void WeaponSwitch()
     {
@@ -27,6 +29,9 @@ public class PlayerController_KeyBoard : MonoBehaviour
         katana.localPosition = Vector3.zero;
         katana.localRotation = Quaternion.identity;
     }
+    /// <summary>
+    ///　刀プレハブの親Objectは背中の空オブジェクトとする
+    /// </summary>
     public void SwordDelivery()
     {
         katana.parent = chestTransform;
@@ -34,13 +39,13 @@ public class PlayerController_KeyBoard : MonoBehaviour
         katana.localRotation = Quaternion.identity;
     }
 
-    //public enum Status
-    //{ 
-    //    Move,
-    //    Avoidance,
-    //    Attack,
-    //    Damage
-    //}
+    private enum Status
+    {
+        //Move,
+        //Avoidance,
+        Attack,
+        //Damage
+    }
 
     void Start()
     {
@@ -126,6 +131,11 @@ public class PlayerController_KeyBoard : MonoBehaviour
     //        m_anim.SetBool("Run", false);
     //    }
     //}
+
+    private void Attack() 
+    {
+        attackAnim = GetComponent<AttackAnim>();
+    }
 }
 
 
