@@ -12,16 +12,15 @@ public class PlayerController_KeyBoard : MonoBehaviour
     private Animator m_anim;
     /// <summary> キャラクターの移動スピード </summary>
     [SerializeField] private float walkSpeed = 2f;
-
     [SerializeField] Transform handTransform;
     [SerializeField] Transform chestTransform;
     [SerializeField] Transform katana;
     private Vector3 velocity;
 
-    AttackAnim attackAnim;
+    //AttackAnim attackAnim;
 
     /// <summary>
-    ///　刀プレハブの親Objectは手の空Objectとする
+    ///　刀プレハブの親Objectは手の空Objectとする(抜刀)
     /// </summary>
     public void WeaponSwitch()
     {
@@ -30,21 +29,13 @@ public class PlayerController_KeyBoard : MonoBehaviour
         katana.localRotation = Quaternion.identity;
     }
     /// <summary>
-    ///　刀プレハブの親Objectは背中の空オブジェクトとする
+    ///　刀プレハブの親Objectは背中の空オブジェクトとする(納刀)
     /// </summary>
     public void SwordDelivery()
     {
         katana.parent = chestTransform;
         katana.localPosition = Vector3.zero;
         katana.localRotation = Quaternion.identity;
-    }
-
-    private enum Status
-    {
-        //Move,
-        //Avoidance,
-        Attack,
-        //Damage
     }
 
     void Start()
@@ -55,12 +46,21 @@ public class PlayerController_KeyBoard : MonoBehaviour
 
     void Update()
     {
+        Move();
+        Avoidance();
+        DasSd();
+        Attack();
+        //Damage();
+    }
+    void Move()
+    {
         if (characterController.isGrounded)
         {
             velocity = Vector3.zero;
 
             var input = new Vector3(Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
 
+            //歩く
             if (input.magnitude > 0f)
             {
                 velocity = transform.forward * walkSpeed;
@@ -70,6 +70,7 @@ public class PlayerController_KeyBoard : MonoBehaviour
             {
                 m_anim.SetBool("Walk", false);
             }
+            //走る
             if (Input.GetButton("Fire3"))
             {
                 velocity = transform.forward * (walkSpeed * 2);
@@ -79,33 +80,53 @@ public class PlayerController_KeyBoard : MonoBehaviour
             {
                 m_anim.SetBool("Run", false);
             }
-            if (Input.GetButtonDown("Jump"))
-            {
-                m_anim.SetBool("Roll", true);
-            }
-            else
-            {
-                m_anim.SetBool("Roll", false);
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-                m_anim.SetBool("DaS", true);
-            }
-            else
-            {
-                m_anim.SetBool("DaS", false);
-            }
-            if (Input.GetButtonDown("Key_G"))
-            {
-                m_anim.SetBool("SD", true);
-            }
-            else
-            {
-                m_anim.SetBool("SD", false);
-            }
         }
         velocity.y += Physics.gravity.y * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
+    }
+    void Avoidance()
+    {
+        //回避
+        if (Input.GetButtonDown("Jump"))
+        {
+            m_anim.SetBool("Roll", true);
+        }
+        else
+        {
+            m_anim.SetBool("Roll", false);
+        }
+    }
+    void DasSd()
+    {
+        //抜刀
+        if (Input.GetMouseButtonDown(1))
+        {
+            m_anim.SetBool("DaS", true);
+        }
+        else
+        {
+            m_anim.SetBool("DaS", false);
+        }
+        //納刀
+        if (Input.GetButtonDown("Key_G"))
+        {
+            m_anim.SetBool("SD", true);
+        }
+        else
+        {
+            m_anim.SetBool("SD", false);
+        }
+    }
+    void Attack() 
+    {
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    m_anim.SetBool("Attack", true);
+        //}
+        //else 
+        //{
+        //    m_anim.SetBool("Attack",false);
+        //}
     }
 
     private void FixedUpdate()
@@ -117,24 +138,6 @@ public class PlayerController_KeyBoard : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
         }
-    }
-
-    //public void Move()
-    //{
-    //    if (Input.GetButton("RB"))
-    //    {
-    //        velocity = transform.forward * (walkSpeed * 2);
-    //        m_anim.SetBool("Run", true);
-    //    }
-    //    else
-    //    {
-    //        m_anim.SetBool("Run", false);
-    //    }
-    //}
-
-    private void Attack() 
-    {
-        attackAnim = GetComponent<AttackAnim>();
     }
 }
 
