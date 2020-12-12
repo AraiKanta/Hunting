@@ -11,13 +11,24 @@ public class PlayerController_KeyBoard : MonoBehaviour
     ///<summary> キャラクターのアニメーション </summary>
     private Animator m_anim;
     /// <summary> キャラクターの移動スピード </summary>
-    [SerializeField] private float walkSpeed = 2f;
+    [Header("プレイヤーの動く速さ")]
+    [SerializeField] private float walkSpeed = 1f;
+    [Header("手の空オブジェクト")]
     [SerializeField] Transform handTransform;
+    [Header("背中の空オブジェクト")]
     [SerializeField] Transform chestTransform;
+    [Header("刀オブジェクト")]
     [SerializeField] Transform katana;
     private Vector3 velocity;
-
-    //AttackAnim attackAnim;
+    void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+        m_anim = GetComponent<Animator>();
+    }
+    public void Apply(float speed) 
+    {
+        m_anim.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
+    }
 
     /// <summary>
     ///　刀プレハブの親Objectは手の空Objectとする(抜刀)
@@ -37,19 +48,12 @@ public class PlayerController_KeyBoard : MonoBehaviour
         katana.localPosition = Vector3.zero;
         katana.localRotation = Quaternion.identity;
     }
-
-    void Start()
-    {
-        characterController = GetComponent<CharacterController>();
-        m_anim = GetComponent<Animator>();
-    }
-
     void Update()
     {
         Move();
         Avoidance();
         DasSd();
-        Attack();
+        //Attack();
         //Damage();
     }
     void Move()
@@ -117,18 +121,13 @@ public class PlayerController_KeyBoard : MonoBehaviour
             m_anim.SetBool("SD", false);
         }
     }
-    void Attack() 
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    m_anim.SetBool("Attack", true);
-        //}
-        //else 
-        //{
-        //    m_anim.SetBool("Attack",false);
-        //}
-    }
-
+    //void Attack() 
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        m_anim.SetBool("Attack", true);
+    //    }
+    //}
     private void FixedUpdate()
     {
         // カメラの向いたほうにキャラクターに力を加える
