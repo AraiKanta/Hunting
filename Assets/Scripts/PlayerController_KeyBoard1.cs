@@ -48,7 +48,7 @@ public class PlayerController_KeyBoard1 : MonoBehaviour
         Move();
         Avoidance();
         DasSd();
-        //Attack();
+        Attack();
         //Damage();
     }
     void Move()
@@ -118,13 +118,17 @@ public class PlayerController_KeyBoard1 : MonoBehaviour
             m_anim.SetBool("SD", false);
         }
     }
-    //void Attack() 
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        m_anim.SetBool("Attack", true);
-    //    }
-    //}
+    void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_anim.SetBool("Attack", true);
+        }
+        else 
+        {
+            m_anim.SetBool("Attack", false);
+        }
+    }
     private void FixedUpdate()
     {
         // カメラの向いたほうにキャラクターに力を加える
