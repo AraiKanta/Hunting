@@ -17,17 +17,13 @@ public class PlayerController_KeyBoard : MonoBehaviour
     [SerializeField] Transform handTransform;
     [Header("背中の空オブジェクト")]
     [SerializeField] Transform chestTransform;
-    [Header("刀オブジェクト")]
-    [SerializeField] Transform katana;
+    [Header("武器オブジェクト")]
+    [SerializeField] Transform weapon;
     private Vector3 velocity;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         m_anim = GetComponent<Animator>();
-    }
-    public void Apply(float speed) 
-    {
-        m_anim.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
     }
 
     /// <summary>
@@ -35,18 +31,18 @@ public class PlayerController_KeyBoard : MonoBehaviour
     /// </summary>
     public void WeaponSwitch()
     {
-        katana.parent = handTransform;
-        katana.localPosition = Vector3.zero;
-        katana.localRotation = Quaternion.identity;
+        weapon.parent = handTransform;
+        weapon.localPosition = Vector3.zero;
+        weapon.localRotation = Quaternion.identity;
     }
     /// <summary>
     ///　刀プレハブの親Objectは背中の空オブジェクトとする(納刀)
     /// </summary>
     public void SwordDelivery()
     {
-        katana.parent = chestTransform;
-        katana.localPosition = Vector3.zero;
-        katana.localRotation = Quaternion.identity;
+        weapon.parent = chestTransform;
+        weapon.localPosition = Vector3.zero;
+        weapon.localRotation = Quaternion.identity;
     }
     void Update()
     {
@@ -93,11 +89,7 @@ public class PlayerController_KeyBoard : MonoBehaviour
         //回避
         if (Input.GetButtonDown("Jump"))
         {
-            m_anim.SetBool("Roll", true);
-        }
-        else
-        {
-            m_anim.SetBool("Roll", false);
+            m_anim.SetTrigger("Roll");
         }
     }
     void DasSd()
@@ -105,14 +97,14 @@ public class PlayerController_KeyBoard : MonoBehaviour
         //抜刀
         if (Input.GetMouseButtonDown(1))
         {
-            m_anim.SetBool("DaS", true);
+            m_anim.SetBool("DaS",true);
         }
-        else
+        else 
         {
             m_anim.SetBool("DaS", false);
         }
         //納刀
-        if (Input.GetButtonDown("Key_G"))
+        if (Input.GetButtonDown("Key_3"))
         {
             m_anim.SetBool("SD", true);
         }
